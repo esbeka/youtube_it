@@ -23,6 +23,7 @@ class YouTubeIt
       attr_reader :upload_count
       attr_reader :upload_views
       attr_reader :user_id
+      attr_reader :channel_id
       attr_reader :username
       attr_reader :username_display
       attr_reader :videos_watched

@@ -303,6 +303,7 @@ class YouTubeIt
           :username       => entry.at_xpath("yt:username") ? entry.at_xpath("yt:username").text : nil,
           :username_display => (entry.at_xpath("yt:username")['display'] rescue nil),
           :user_id        => (entry.at_xpath("xmlns:author/yt:userId").text rescue nil),
+          :channel_id     => (entry.at_xpath("yt:channelId").text rescue nil),
           :last_name      => (entry.at_xpath("yt:lastName").text rescue nil),
           :first_name     => (entry.at_xpath("yt:firstName").text rescue nil),
           :company        => entry.at_xpath("yt:company") ? entry.at_xpath("yt:company").text : nil,
@@ -345,7 +346,7 @@ class YouTubeIt
         end.reduce({},:merge)
       end
     end
-    
+
     class SubscriptionFeedParser < FeedParser #:nodoc:
 
       def parse_content(content)
@@ -610,7 +611,7 @@ class YouTubeIt
         end.reduce({},:merge)
       end
     end
-    
+
     class VideosFeedParser < VideoFeedParser #:nodoc:
 
     private
