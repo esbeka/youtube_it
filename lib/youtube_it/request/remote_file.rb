@@ -10,12 +10,12 @@ class YouTubeIt
         @pos = 0
         @url = url
         @uri = URI(@url)
-        
+
         @content_length = opts[:content_length]
 
         @fiber = Fiber.new do |first|
-
-          Net::HTTP.start(@uri.host, @uri.port) do |http|
+          options = { :use_ssl => (@uri.scheme == 'https') }
+          Net::HTTP.start(@uri.host, @uri.port, options) do |http|
             request = Net::HTTP::Get.new @uri.request_uri
             http.request request do |response|
               response.read_body do |chunk|
@@ -37,7 +37,8 @@ class YouTubeIt
       end
 
       def head
-        @head_result || Net::HTTP.start(@uri.host, @uri.port) do |http|
+        options = { :use_ssl => (@uri.scheme == 'https') }
+        @head_result || Net::HTTP.start(@uri.host, @uri.port, options) do |http|
           @head_result = http.request(Net::HTTP::Head.new(@uri.request_uri))
         end
         @head_result
